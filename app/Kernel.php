@@ -11,6 +11,13 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
+    protected $routeMiddleware = [
+        // ... otros middleware
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        'aut' => \App\Http\Middleware\CustomAuthenticate::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+    ];
+    
     protected $middlewareGroups = [
         'web' => [
            

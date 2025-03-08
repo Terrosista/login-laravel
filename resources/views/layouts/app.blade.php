@@ -28,6 +28,10 @@
                 <a href="#" class="font-semibold hover:bg-indigo-400 py-3 px-4 rounded-md glow-text">John Doe</a>
             </li>
             @if (Auth::check())
+            <li class="mx-8">
+                <p class="text-xl">Bienvenido  <b>{{Auth::user()->name}}</b> </p>
+
+            </li>
             <li>
                 <a href="{{ route('logout') }}"class="font-semibold text-red-600 hover:bg-indigo-400 
                 py-1 px-4 rounded-md glow-text border-2 border-red-600">logout</a>
