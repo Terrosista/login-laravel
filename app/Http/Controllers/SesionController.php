@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -19,11 +18,11 @@ class SesionController extends Controller
                 'email' => 'Las credenciales proporcionadas no coinciden con nuestros registros.',
             ]);
         }
-        
-        // 🔹 Regenerar la sesión por seguridad
+
+        // Regenerar la sesión por seguridad
         request()->session()->regenerate();
 
-        // 🔹 Redirigir al usuario a su destino previsto
+        // Redirigir al usuario a su destino previsto
         return redirect()->intended('dashboard');
     }
 
@@ -31,19 +30,21 @@ class SesionController extends Controller
     {
         auth()->logout();
 
-        // 🔹 Invalida la sesión para evitar problemas de seguridad
+        // Invalida la sesión para evitar problemas de seguridad
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect()->route('login'); // Asegurar que va a la ruta correcta
     }
-
+    
+ // Método para mostrar el dashboard y verificar si el usuario está autenticado
     public function dashboard()
-    {
-        if (auth()->check()) {
-            return view('auth.dashboard');
-        }
-
-        return redirect()->route('login');
+{
+    if (!Auth::check()) {
+        return redirect()->route('login')->with('error', 'Debes iniciar sesión');
     }
+
+    return view('auth.dashboard');
+}
+
 }
